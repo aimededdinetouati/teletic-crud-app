@@ -1,0 +1,23 @@
+spring:
+  # DATA SOURCE CONFIGURATION
+  datasource:
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/proddb
+    driver-class-name: org.postgresql.Driver
+
+    # CONNECTION POOL SETTINGS
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+
+  # JPA CONFIGURATION
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+  # FLYWAY CONFIGURATION
+  flyway:
+    locations: classpath:db/migration
+    enabled: true
