@@ -20,10 +20,10 @@ dist/
 *.launch
 .settings/
 
-# Maven
-target/
+# Gradle
+build/
+.gradle/
 *.iml
-.mvn/
 
 # Docker
 .docker/
