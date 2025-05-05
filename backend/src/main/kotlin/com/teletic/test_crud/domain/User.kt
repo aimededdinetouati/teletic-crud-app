@@ -1,5 +1,6 @@
 package com.teletic.test_crud.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
@@ -18,12 +19,12 @@ class User (
     @GeneratedValue
     var id: Long? = null,
 
-    var name: String,
+    var fullName: String,
 
     @Column(unique = true)
     var email: String,
 
-    var password: String,
+    private var password: String,
 
     var locked: Boolean = false,
 
