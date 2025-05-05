@@ -3,7 +3,7 @@ spring:
     datasource:
         username: devuser
         password: devpassword
-        url: jdbc:postgresql://postgres-db:5432/devdb
+        url: jdbc:postgresql://localhost:5432/devdb
         driver-class-name: org.postgresql.Driver
 
     # JPA CONFIGURATION
@@ -19,3 +19,9 @@ spring:
     flyway:
       locations: classpath:db/migration
       enabled: true
+
+application:
+  security:
+    jwt:
+      secret-key: 3c236312f714c5493546d91060d1d5b9
+      expiration: 86400000

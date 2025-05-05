@@ -1,6 +1,10 @@
 server:
   port: 8080
+  servlet:
+    context-path: /api/
 spring:
+  profiles:
+    active: dev
   application:
     name: user-service
   jpa:
@@ -10,4 +14,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+  default-produces-media-type: application/json
 
