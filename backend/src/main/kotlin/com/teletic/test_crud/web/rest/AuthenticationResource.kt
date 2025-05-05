@@ -8,11 +8,13 @@ import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @RequestMapping("/auth")
@@ -33,12 +35,17 @@ class AuthenticationResource (
     }
 
     @PostMapping("/login")
-    @ResponseStatus(HttpStatus.ACCEPTED)
     fun login (
-        @RequestBody @Valid authenticationRequestDTO: AuthenticationRequestDTO
+        @RequestBody @Valid requestDTO: AuthenticationRequestDTO
     ): ResponseEntity<Any> {
-        log.info("Authentication user with email: {}", authenticationRequestDTO.email)
-        val result = authenticationService.authenticate(authenticationRequestDTO)
+        log.info("Authentication user with email: {}", requestDTO.email)
+        var result = Any()
+        try {
+            result = authenticationService.authenticate(requestDTO)!!
+        }  catch (e: BadCredentialsException) {
+            log.warn("Failed authentication attempt for user: {}", requestDTO.email)
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials")
+        }
         return ResponseEntity.ok(result)
     }
 
