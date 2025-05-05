@@ -9,7 +9,7 @@ spring:
     # JPA CONFIGURATION
     jpa:
       hibernate:
-            ddl-auto: create-drop
+            ddl-auto: update
       show-sql: true
       properties:
         hibernate:
@@ -23,5 +23,5 @@ spring:
 application:
   security:
     jwt:
-      secret-key: 3c236312f714c5493546d91060d1d5b9
+      secret-key: 4bde5458c449b71665b66214b1e7dfad8ada3f60895d23e1453b415fe4a5e46b
       expiration: 86400000

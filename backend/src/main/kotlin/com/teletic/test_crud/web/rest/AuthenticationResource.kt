@@ -1,6 +1,7 @@
 package com.teletic.test_crud.web.rest
 
 import com.teletic.test_crud.service.AuthenticationService
+import com.teletic.test_crud.service.dto.AuthenticationRequestDTO
 import com.teletic.test_crud.service.dto.RegistrationRequestDTO
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
@@ -29,6 +30,16 @@ class AuthenticationResource (
         log.info("Registering new user with email: {}", registrationRequestDTO.email)
         authenticationService.register(registrationRequestDTO)
         return ResponseEntity.accepted().build()
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    fun login (
+        @RequestBody @Valid authenticationRequestDTO: AuthenticationRequestDTO
+    ): ResponseEntity<Any> {
+        log.info("Authentication user with email: {}", authenticationRequestDTO.email)
+        val result = authenticationService.authenticate(authenticationRequestDTO)
+        return ResponseEntity.ok(result)
     }
 
 }

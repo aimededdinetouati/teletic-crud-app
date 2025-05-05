@@ -19,8 +19,7 @@ class JwtService (
     @Value("\${application.security.jwt.secret-key}") private val secretKey: String
 ) {
 
-    fun generateToken(userDetails: UserDetails) : String {
-        val extraClaims = HashMap<String, Any>()
+    fun generateToken(userDetails: UserDetails, claims: HashMap<String, Any>) : String {
         val authorities = userDetails
             .authorities
             .map(GrantedAuthority::getAuthority)
@@ -30,7 +29,7 @@ class JwtService (
 
         return Jwts
             .builder()
-            .setClaims(extraClaims)
+            .setClaims(claims)
             .setSubject(userDetails.username)
             .setIssuedAt(Date(currentTimeMillis))
             .setExpiration(Date(currentTimeMillis + jwtExpiration))
