@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.teletic.test_crud.IntegrationTest
 import com.teletic.test_crud.TestCrudApplication
 import com.teletic.test_crud.config.EmbeddedSQL
-import com.teletic.test_crud.config.TestConfiguration
 import com.teletic.test_crud.domain.Role
 import com.teletic.test_crud.domain.User
 import com.teletic.test_crud.repository.RoleRepository

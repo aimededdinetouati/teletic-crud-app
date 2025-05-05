@@ -2,6 +2,7 @@ package com.teletic.test_crud.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
+import org.hibernate.annotations.Type
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -19,9 +20,10 @@ class User (
     @GeneratedValue
     var id: Long? = null,
 
+    @Column(columnDefinition = "VARCHAR(100)")
     var fullName: String,
 
-    @Column(unique = true)
+    @Column(unique = true, columnDefinition = "VARCHAR(50)")
     var email: String,
 
     private var password: String,

@@ -1,5 +1,6 @@
 package com.teletic.test_crud.domain
 
+import com.teletic.test_crud.security.AuthoritiesConstants
 import java.time.Instant
 import java.util.*
 import java.util.concurrent.atomic.AtomicLong

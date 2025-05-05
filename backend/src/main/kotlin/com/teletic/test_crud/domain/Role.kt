@@ -23,10 +23,8 @@ class Role (
     var users: MutableSet<User> = mutableSetOf(),
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
     val createdDate: Instant? = null,
 
     @LastModifiedDate
-    @Column(nullable = false)
     var lastModifiedDate: Instant? = null
 )
