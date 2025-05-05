@@ -1,6 +1,7 @@
 package com.teletic.test_crud.security
 
 import com.teletic.test_crud.repository.UserRepository
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -12,6 +13,6 @@ class UserDetailsService (
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
         return userRepository.findByEmail(username)
-            ?: throw UsernameNotFoundException("User not found with email: $username")
+            ?: throw AccessDeniedException("User not found with email: $username")
     }
 }

@@ -295,7 +295,7 @@ class UserResourceIT {
         mockMvc.perform(put("/users/999999")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsBytes(updateDTO)))
-            .andExpect(status().isNotFound)
+            .andExpect(status().isBadRequest)
     }
 
     @Test

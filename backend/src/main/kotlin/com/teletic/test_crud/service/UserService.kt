@@ -6,6 +6,7 @@ import com.teletic.test_crud.repository.UserRepository
 import com.teletic.test_crud.security.AuthoritiesConstants
 import com.teletic.test_crud.service.dto.RegistrationRequestDTO
 import com.teletic.test_crud.service.dto.UserDTO
+import com.teletic.test_crud.web.rest.errors.BadRequestAlertException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -23,7 +24,7 @@ class UserService (
 
     fun findById(id: Long): User {
         return userRepository.findById(id).orElseThrow {
-            jakarta.persistence.EntityNotFoundException("User not found with id: $id")
+            BadRequestAlertException("User not found", "userManagement", "userNotFound")
         }
     }
 
@@ -57,7 +58,7 @@ class UserService (
     fun delete(id: Long) {
         findById(id)
         if (userRepository.isLastUserWithRole(id, AuthoritiesConstants.ADMIN)) {
-            throw IllegalStateException("Cannot delete last admin user")
+            throw BadRequestAlertException("Cannot delete last admin user", "error", "Last admin user cannot be deleted")
         }
         userRepository.deleteById(id)
     }

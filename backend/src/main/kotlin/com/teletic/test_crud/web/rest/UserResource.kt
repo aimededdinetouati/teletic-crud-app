@@ -87,12 +87,7 @@ class UserResource(
     @Operation(summary = "Delete a user")
     fun deleteUser(@PathVariable userId: Long): ResponseEntity<Void> {
         log.info("REST request to delete user with id: {}", userId)
-        try {
-            userService.delete(userId)
-            return ResponseEntity.noContent().build()
-        } catch (e: IllegalStateException) {
-            log.warn("Cannot delete user with id: {} - {}", userId, e.message)
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
-        }
+        userService.delete(userId)
+        return ResponseEntity.noContent().build()
     }
 }

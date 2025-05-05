@@ -39,13 +39,7 @@ class AuthenticationResource (
         @RequestBody @Valid requestDTO: AuthenticationRequestDTO
     ): ResponseEntity<Any> {
         log.info("Authentication user with email: {}", requestDTO.email)
-        var result = Any()
-        try {
-            result = authenticationService.authenticate(requestDTO)!!
-        }  catch (e: BadCredentialsException) {
-            log.warn("Failed authentication attempt for user: {}", requestDTO.email)
-            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials")
-        }
+        var result = authenticationService.authenticate(requestDTO)!!
         return ResponseEntity.ok(result)
     }
 
