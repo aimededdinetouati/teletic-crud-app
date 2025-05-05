@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.teletic.test_crud.IntegrationTest
 import com.teletic.test_crud.TestCrudApplication
 import com.teletic.test_crud.config.EmbeddedSQL
+import com.teletic.test_crud.config.TestConfiguration
 import com.teletic.test_crud.domain.Role
 import com.teletic.test_crud.domain.User
 import com.teletic.test_crud.repository.RoleRepository
 import com.teletic.test_crud.repository.UserRepository
+import com.teletic.test_crud.security.AuthoritiesConstants
 import com.teletic.test_crud.service.dto.AuthenticationRequestDTO
 import com.teletic.test_crud.service.dto.RegistrationRequestDTO
 import org.assertj.core.api.Assertions.assertThat
@@ -16,9 +18,11 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.test.annotation.DirtiesContext
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
@@ -50,8 +54,8 @@ class AuthenticationResourceIT {
     @BeforeEach
     fun setup() {
         // Create ROLE_USER if it doesn't exist
-        userRole = roleRepository.findByName("ROLE_USER")
-            ?: roleRepository.save(Role(name = "ROLE_USER"))
+        userRole = roleRepository.findByName(AuthoritiesConstants.USER)
+            ?: roleRepository.save(Role(name = AuthoritiesConstants.USER))
     }
 
     @Test

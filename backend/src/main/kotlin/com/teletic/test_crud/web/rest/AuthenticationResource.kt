@@ -30,7 +30,7 @@ class AuthenticationResource (
         @RequestBody @Valid registrationRequestDTO: RegistrationRequestDTO
     ): ResponseEntity<Any> {
         log.info("Registering new user with email: {}", registrationRequestDTO.email)
-        authenticationService.register(registrationRequestDTO)
+        authenticationService.register(registrationRequestDTO, true)
         return ResponseEntity.accepted().build()
     }
 

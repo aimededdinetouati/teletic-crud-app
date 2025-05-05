@@ -23,7 +23,7 @@ object RoleTestSamples {
     fun createSampleRole2(): Role {
         return Role(
             id = 2,
-            name = "ROLE_ADMIN",
+            name = AuthoritiesConstants.ADMIN,
             createdDate = Instant.now(),
             lastModifiedDate = Instant.now()
         )
