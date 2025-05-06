@@ -16,8 +16,3 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: false
-
-  # FLYWAY CONFIGURATION
-  flyway:
-    locations: classpath:db/migration
-    enabled: true

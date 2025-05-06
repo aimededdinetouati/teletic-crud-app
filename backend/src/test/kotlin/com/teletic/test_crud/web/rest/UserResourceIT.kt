@@ -1,9 +1,7 @@
 package com.teletic.test_crud.web.rest
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.teletic.test_crud.IntegrationTest
 import com.teletic.test_crud.TestCrudApplication
-import com.teletic.test_crud.config.EmbeddedSQL
 import com.teletic.test_crud.domain.Role
 import com.teletic.test_crud.domain.User
 import com.teletic.test_crud.repository.RoleRepository
@@ -23,13 +21,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import org.springframework.transaction.annotation.Transactional
 import org.assertj.core.api.Assertions.assertThat
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.annotation.DirtiesContext
+import org.springframework.test.context.ActiveProfiles
 
 @AutoConfigureMockMvc
 @WithMockUser(authorities = [AuthoritiesConstants.ADMIN])
 @SpringBootTest(classes = [TestCrudApplication::class])
-@EmbeddedSQL
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+@ActiveProfiles("test")
 class UserResourceIT {
 
     @Autowired

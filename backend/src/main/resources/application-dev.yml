@@ -15,11 +15,6 @@ spring:
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQLDialect
 
-    # FLYWAY CONFIGURATION
-    flyway:
-      locations: classpath:db/migration
-      enabled: true
-
 application:
   security:
     jwt:

@@ -1,9 +1,7 @@
 package com.teletic.test_crud.web.rest
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.teletic.test_crud.IntegrationTest
 import com.teletic.test_crud.TestCrudApplication
-import com.teletic.test_crud.config.EmbeddedSQL
 import com.teletic.test_crud.domain.Role
 import com.teletic.test_crud.domain.User
 import com.teletic.test_crud.repository.RoleRepository
@@ -17,10 +15,8 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -29,8 +25,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @AutoConfigureMockMvc
 @SpringBootTest(classes = [TestCrudApplication::class])
-@EmbeddedSQL
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+@ActiveProfiles("test")
 class AuthenticationResourceIT {
 
     @Autowired
