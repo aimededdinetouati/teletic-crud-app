@@ -39,7 +39,16 @@ class UserService (
 
     @Transactional(readOnly = true)
     fun search(fullName: String?, email: String?, role: String?, pageable: Pageable): Page<User> {
-        return userRepository.search(fullName, email, role, pageable)
+        val fnFilter = fullName
+            ?.takeIf { it.isNotBlank() }
+            ?.lowercase()
+            ?.let { "%$it%" }
+
+        val emFilter = email
+            ?.takeIf { it.isNotBlank() }
+            ?.lowercase()
+            ?.let { "%$it%" }
+        return userRepository.search(fnFilter, emFilter, role, pageable)
     }
 
     fun update(userId: Long, registrationRequestDTO: RegistrationRequestDTO, isAdmin: Boolean): User {

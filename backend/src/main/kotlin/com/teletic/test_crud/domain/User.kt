@@ -2,7 +2,6 @@ package com.teletic.test_crud.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
-import org.hibernate.annotations.Type
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -17,7 +16,7 @@ import java.time.Instant
 @EntityListeners(AuditingEntityListener::class)
 class User (
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
     @Column(columnDefinition = "VARCHAR(100)")
@@ -26,18 +25,26 @@ class User (
     @Column(unique = true, columnDefinition = "VARCHAR(50)")
     var email: String,
 
+    @Column(columnDefinition = "VARCHAR(100)")
     private var password: String,
 
+    @Column(columnDefinition = "BOOLEAN DEFAULT false")
     var locked: Boolean = false,
 
+    @Column(columnDefinition = "BOOLEAN DEFAULT true")
     var enabled: Boolean = true,
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "users_roles",
+        joinColumns = [JoinColumn(name = "users_id")],
+        inverseJoinColumns = [JoinColumn(name = "roles_id")]
+    )
     var roles: MutableSet<Role> = mutableSetOf(),
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    var createdDate: Instant? =  null,
+    var createdDate: Instant? = null,
 
     @LastModifiedDate
     @Column(insertable = false)

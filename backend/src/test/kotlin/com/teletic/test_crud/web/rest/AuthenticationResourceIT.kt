@@ -49,12 +49,16 @@ class AuthenticationResourceIT {
     private lateinit var mockMvc: MockMvc
 
     private lateinit var userRole: Role
+    private lateinit var adminRole: Role
 
     @BeforeEach
     fun setup() {
         // Create ROLE_USER if it doesn't exist
         userRole = roleRepository.findByName(AuthoritiesConstants.USER)
             ?: roleRepository.save(Role(name = AuthoritiesConstants.USER))
+
+        adminRole = roleRepository.findByName(AuthoritiesConstants.ADMIN)
+            ?: roleRepository.save(Role(name = AuthoritiesConstants.ADMIN))
     }
 
     @Test

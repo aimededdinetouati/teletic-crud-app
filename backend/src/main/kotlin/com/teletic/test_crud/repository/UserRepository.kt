@@ -23,20 +23,19 @@ interface UserRepository : JpaRepository<User, Long> {
     )
     fun isLastUserWithRole(@Param("userId") userId: Long, @Param("roleName") roleName: String): Boolean
 
-    // Search users by name and/or email with role filtering capability
-    @Query(
-        """
-    SELECT DISTINCT u FROM User u 
-    JOIN u.roles r 
-    WHERE (:fullName IS NULL OR LOWER(u.fullName) LIKE LOWER(CONCAT('%', :fullName, '%')))
-    AND (:email IS NULL OR LOWER(u.email) LIKE LOWER(CONCAT('%', :email, '%')))
-    AND (:role IS NULL OR r.name = :role)
-    """
-    )
+    @Query("""
+  SELECT DISTINCT u
+    FROM User u
+    JOIN u.roles r
+   WHERE ( :fullName IS NULL OR lower(u.fullName) LIKE :fullName )
+     AND (  :email   IS NULL OR lower(u.email)    LIKE :email    )
+     AND (  :role    IS NULL OR r.name            = :role     )
+""")
     fun search(
         @Param("fullName") fullName: String?,
-        @Param("email") email: String?,
-        @Param("role") role: String?,
+        @Param("email")   email:   String?,
+        @Param("role")    role:    String?,
         pageable: Pageable
     ): Page<User>
+
 }
