@@ -22,7 +22,16 @@ class JwtFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        if (request.servletPath.contains("/api/auth")) {
+        val path = request.servletPath
+
+        // Skip JWT validation for these public paths
+        if (path.contains("/auth") ||
+            path.contains("/health") ||
+            path.contains("/v3/api-docs") ||
+            path.contains("/swagger-ui") ||
+            path.contains("/configuration") ||
+            path.contains("/swagger-resources") ||
+            path.contains("/webjars")) {
             filterChain.doFilter(request, response)
             return
         }

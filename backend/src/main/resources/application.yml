@@ -17,4 +17,12 @@ spring:
 
 springdoc:
   default-produces-media-type: application/json
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  packages-to-scan: com.teletic.test_crud.web.rest
+  paths-to-match: /**
 
