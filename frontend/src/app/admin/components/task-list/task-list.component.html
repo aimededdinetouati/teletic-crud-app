@@ -1,0 +1,128 @@
+<app-main-layout>
+    <div class="task-list-container">
+        <div class="list-header">
+            <h1 class="page-title">Tasks Management</h1>
+            <button class="btn-add" routerLink="/admin/tasks/new">
+                <span class="add-icon"><i class="fas fa-plus"></i></span>
+                <span>Add Task</span>
+            </button>
+        </div>
+
+        <div class="search-container">
+            <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" formControlName="title" class="form-control" placeholder="Search by title">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select formControlName="status" class="form-control">
+                        <option value="">All statuses</option>
+                        <option value="TO_DO">To Do</option>
+                        <option value="IN_PROGRESS">In Progress</option>
+                        <option value="COMPLETED">Completed</option>
+                        <option value="CANCELLED">Cancelled</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Assignee ID</label>
+                    <input type="number" formControlName="assigneeId" class="form-control" placeholder="Filter by assignee ID">
+                </div>
+
+                <div class="search-actions">
+                    <button type="button" class="btn btn-outline-secondary" (click)="resetSearch()">
+                        Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <app-loading-spinner *ngIf="isLoading" [message]="'Loading tasks...'"></app-loading-spinner>
+
+        <app-alert *ngIf="errorMessage" [type]="'danger'" [message]="errorMessage"></app-alert>
+
+        <div *ngIf="!isLoading && !errorMessage" class="table-container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title/Description</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Assignee</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let task of tasks">
+                    <td>{{ task.id }}</td>
+                    <td>
+                        <div class="task-title">{{ task.title }}</div>
+                        <div class="task-description">{{ task.description || 'No description' }}</div>
+                    </td>
+                    <td>
+              <span
+                      class="task-status"
+                      [ngClass]="getStatusClass(task.status)"
+              >
+                {{ task.status }}
+              </span>
+                    </td>
+                    <td>{{ formatDate(task.dueDate) }}</td>
+                    <td>{{ task.assigneeId || 'Unassigned' }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-action btn-edit" [routerLink]="['/admin/tasks/edit', task.id]">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-action btn-assign" [routerLink]="['/admin/tasks/assign', task.id]">
+                                <i class="fas fa-user-plus"></i>
+                            </button>
+                            <button class="btn-action btn-delete" (click)="confirmDelete(task)">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="tasks.length === 0">
+                    <td colspan="6" class="table-empty">No tasks found</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination" *ngIf="totalItems > 0">
+                <div class="page-info">
+                    Showing {{ tasks.length }} of {{ totalItems }} tasks
+                </div>
+                <div class="page-buttons">
+                    <button class="page-button" [disabled]="currentPage === 0" (click)="onPageChange(currentPage - 1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="page-button active">
+                        {{ currentPage + 1 }}
+                    </button>
+                    <button class="page-button" [disabled]="(currentPage + 1) * pageSize >= totalItems" (click)="onPageChange(currentPage + 1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-confirm-dialog
+            [visible]="showDeleteConfirm"
+            [title]="'Confirm Delete'"
+            [message]="'Are you sure you want to delete task: ' + (taskToDelete?.title || '') + '?'"
+            [confirmText]="'Delete'"
+            [cancelText]="'Cancel'"
+            [confirmButtonClass]="'btn-danger'"
+            (confirm)="onDeleteConfirmed()"
+            (cancel)="onDeleteCancelled()"
+    ></app-confirm-dialog>
+</app-main-layout>

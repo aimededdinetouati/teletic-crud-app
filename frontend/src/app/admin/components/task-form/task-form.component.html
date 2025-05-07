@@ -1,0 +1,109 @@
+<app-main-layout>
+    <div class="form-container">
+        <div class="form-header">
+            <h1 class="page-title">{{ isEditing ? 'Edit Task' : 'Add New Task' }}</h1>
+            <p class="form-subtitle">{{ isEditing ? 'Update existing task information' : 'Create a new task' }}</p>
+        </div>
+
+        <app-alert *ngIf="errorMessage" [type]="'danger'" [message]="errorMessage"></app-alert>
+        <app-alert *ngIf="successMessage" [type]="'success'" [message]="successMessage"></app-alert>
+
+        <div *ngIf="isLoading && isEditing" class="loading-indicator">
+            <app-loading-spinner [message]="'Loading task data...'"></app-loading-spinner>
+        </div>
+
+        <form *ngIf="!isLoading || !isEditing" [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="form-card">
+            <div class="form-group">
+                <label for="title" class="form-label">
+                    Title<span class="required-indicator">*</span>
+                </label>
+                <input
+                        type="text"
+                        id="title"
+                        formControlName="title"
+                        class="form-control"
+                        [ngClass]="{'is-invalid': taskForm.get('title')?.invalid && taskForm.get('title')?.touched}"
+                >
+                <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched" class="invalid-feedback">
+                    <div *ngIf="taskForm.get('title')?.errors?.['required']">Title is required</div>
+                    <div *ngIf="taskForm.get('title')?.errors?.['minlength']">Title must be at least 3 characters</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="form-label">
+                    Description
+                </label>
+                <textarea
+                        id="description"
+                        formControlName="description"
+                        class="form-control form-textarea"
+                        placeholder="Enter task description"
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="status" class="form-label">
+                    Status<span class="required-indicator">*</span>
+                </label>
+                <select
+                        id="status"
+                        formControlName="status"
+                        class="form-control"
+                        [ngClass]="{'is-invalid': taskForm.get('status')?.invalid && taskForm.get('status')?.touched}"
+                >
+                    <option value="TO_DO">To Do</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="COMPLETED">Completed</option>
+                    <option value="CANCELLED">Cancelled</option>
+                </select>
+                <div *ngIf="taskForm.get('status')?.invalid && taskForm.get('status')?.touched" class="invalid-feedback">
+                    <div *ngIf="taskForm.get('status')?.errors?.['required']">Status is required</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="dueDate" class="form-label">
+                    Due Date
+                </label>
+                <input
+                        type="date"
+                        id="dueDate"
+                        formControlName="dueDate"
+                        class="form-control"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="assigneeId" class="form-label">
+                    Assignee ID
+                </label>
+                <input
+                        type="number"
+                        id="assigneeId"
+                        formControlName="assigneeId"
+                        class="form-control"
+                        placeholder="Enter user ID to assign task"
+                >
+            </div>
+
+            <div class="form-actions">
+                <button
+                        type="button"
+                        class="btn btn-secondary"
+                        routerLink="/admin/tasks"
+                >
+                    Cancel
+                </button>
+                <button
+                        type="submit"
+                        class="btn btn-primary"
+                        [disabled]="taskForm.invalid || isLoading"
+                >
+                    <span *ngIf="isLoading" class="spinner"></span>
+                    {{ isEditing ? 'Update Task' : 'Create Task' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</app-main-layout>

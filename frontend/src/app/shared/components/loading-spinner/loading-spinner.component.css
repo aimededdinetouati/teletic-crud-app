@@ -1,0 +1,57 @@
+.spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.spinner {
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #e0e0e0;
+    border-top-color: #3498db;
+    animation: spin 1s linear infinite;
+}
+
+.small {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-width: 0.2rem;
+}
+
+.medium {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.25rem;
+}
+
+.large {
+    width: 5rem;
+    height: 5rem;
+    border-width: 0.35rem;
+}
+
+.spinner-message {
+    margin-top: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

@@ -1,0 +1,93 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    background-color: #fff;
+    border-bottom: 1px solid #e1e1e1;
+    height: 60px;
+}
+
+.app-brand {
+    display: flex;
+    align-items: center;
+}
+
+.app-logo {
+    height: 32px;
+    margin-right: 0.75rem;
+}
+
+.app-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.user-name {
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.user-role {
+    background-color: #e9ecef;
+    color: #495057;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+}
+
+.admin-role {
+    background-color: #e2f2ff;
+    color: #0066cc;
+}
+
+.header-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.header-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+}
+
+.logout-icon {
+    margin-right: 0.25rem;
+}
+
+@media (max-width: 576px) {
+    .app-title {
+        display: none;
+    }
+
+    .user-name {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
