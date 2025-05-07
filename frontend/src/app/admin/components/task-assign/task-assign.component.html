@@ -13,7 +13,7 @@
         </div>
 
         <div *ngIf="!isLoadingTask && task" class="task-details">
-            <div class="task-title">{{ task?.title }}</div>
+            <div class="task-title">{{ task.title }}</div>
 
             <div class="task-info">
                 <div class="task-info-item">
@@ -21,24 +21,24 @@
                     <span
                             class="task-status"
                             [ngClass]="{
-              'status-todo': task?.status === 'TO_DO',
-              'status-inprogress': task?.status === 'IN_PROGRESS',
-              'status-completed': task?.status === 'COMPLETED',
-              'status-cancelled': task?.status === 'CANCELLED'
+              'status-todo': task.status === 'TO_DO',
+              'status-inprogress': task.status === 'IN_PROGRESS',
+              'status-completed': task.status === 'COMPLETED',
+              'status-cancelled': task.status === 'CANCELLED'
             }"
                     >
-            {{ task?.status }}
+            {{ task.status }}
           </span>
                 </div>
 
                 <div class="task-info-item">
                     <span class="info-label">Current Assignee:</span>
-                    <span>{{ task?.assigneeId ? task?.assigneeId : 'Unassigned' }}</span>
+                    <span>{{ task.assigneeId ? task.assigneeId : 'Unassigned' }}</span>
                 </div>
             </div>
 
-            <div *ngIf="task?.description" class="task-description">
-                {{ task?.description }}
+            <div *ngIf="task.description" class="task-description">
+                {{ task.description }}
             </div>
         </div>
 

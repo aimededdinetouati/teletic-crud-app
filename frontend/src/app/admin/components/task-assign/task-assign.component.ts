@@ -9,7 +9,7 @@ import { UserDto } from '../../../services/models/user-dto';
 import {AlertComponent} from "../../../shared/components/alert/alert.component";
 import {MainLayoutComponent} from "../../../shared/components/main-layout/main-layout.component";
 import {LoadingSpinnerComponent} from "../../../shared/components/loading-spinner/loading-spinner.component";
-import {NgClass} from "@angular/common";
+import {CommonModule, NgClass} from "@angular/common";
 import {SharedModule} from "../../../shared/shared.module";
 
 @Component({
@@ -20,7 +20,8 @@ import {SharedModule} from "../../../shared/shared.module";
         MainLayoutComponent,
         LoadingSpinnerComponent,
         NgClass,
-        SharedModule
+        SharedModule,
+        CommonModule
     ],
     styleUrls: ['./task-assign.component.css']
 })

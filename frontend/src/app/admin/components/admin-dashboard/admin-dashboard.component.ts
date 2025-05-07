@@ -4,6 +4,7 @@ import { TaskDto, UserDto } from '../../../services/models';
 import {LoadingSpinnerComponent} from "../../../shared/components/loading-spinner/loading-spinner.component";
 import {AlertComponent} from "../../../shared/components/alert/alert.component";
 import {CommonModule} from "@angular/common";
+import {MainLayoutComponent} from "../../../shared/components/main-layout/main-layout.component";
 
 @Component({
     selector: 'app-admin-dashboard',
@@ -11,7 +12,8 @@ import {CommonModule} from "@angular/common";
     imports: [
         LoadingSpinnerComponent,
         AlertComponent,
-        CommonModule
+        CommonModule,
+        MainLayoutComponent
     ],
     styleUrls: ['./admin-dashboard.component.css']
 })
