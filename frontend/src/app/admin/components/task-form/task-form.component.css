@@ -60,6 +60,12 @@
     border-color: #dc3545;
 }
 
+.form-control:disabled {
+    background-color: #e9ecef;
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
 .form-textarea {
     min-height: 100px;
     resize: vertical;
@@ -71,6 +77,21 @@
     margin-top: 0.25rem;
     font-size: 80%;
     color: #dc3545;
+}
+
+.form-text {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+}
+
+.text-muted {
+    color: #6c757d;
+}
+
+.mt-1 {
+    margin-top: 0.25rem;
 }
 
 .form-actions {
@@ -150,4 +171,46 @@
 .required-indicator {
     color: #dc3545;
     margin-left: 2px;
+}
+
+/* Select dropdown styling */
+select.form-control {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 8px 10px;
+    padding-right: 1.75rem;
+}
+
+select.form-control:disabled {
+    background-color: #e9ecef;
+    opacity: 0.65;
+}
+
+/* Spinner animation for loading users */
+.fa-spin {
+    animation: fa-spin 2s infinite linear;
+}
+
+@keyframes fa-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Option styling */
+option {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+}
+
+option:first-child {
+    font-style: italic;
+    color: #6c757d;
 }

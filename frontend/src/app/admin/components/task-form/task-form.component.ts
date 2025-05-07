@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskManagementService } from '../../../services/services/task-management.service';
+import { UserManagementService } from '../../../services/services/user-management.service';
 import { TaskDto } from '../../../services/models/task-dto';
-import {AlertComponent} from "../../../shared/components/alert/alert.component";
-import {LoadingSpinnerComponent} from "../../../shared/components/loading-spinner/loading-spinner.component";
-import {CommonModule, NgClass} from "@angular/common";
-import {MainLayoutComponent} from "../../../shared/components/main-layout/main-layout.component";
-import {SharedModule} from "../../../shared/shared.module";
+import { UserDto } from '../../../services/models/user-dto';
+import { AlertComponent } from "../../../shared/components/alert/alert.component";
+import { LoadingSpinnerComponent } from "../../../shared/components/loading-spinner/loading-spinner.component";
+import { CommonModule, NgClass } from "@angular/common";
+import { MainLayoutComponent } from "../../../shared/components/main-layout/main-layout.component";
+import { SharedModule } from "../../../shared/shared.module";
 
 @Component({
     selector: 'app-task-form',
@@ -27,12 +29,15 @@ export class TaskFormComponent implements OnInit {
     taskId: number | null = null;
     isEditing = false;
     isLoading = false;
+    isLoadingUsers = false;
     errorMessage = '';
     successMessage = '';
+    users: UserDto[] = [];
 
     constructor(
         private fb: FormBuilder,
         private taskService: TaskManagementService,
+        private userService: UserManagementService,
         private route: ActivatedRoute,
         private router: Router
     ) {
@@ -55,6 +60,27 @@ export class TaskFormComponent implements OnInit {
             this.isEditing = true;
             this.loadTaskDetails();
         }
+
+        // Load users for the assignee dropdown
+        this.loadUsers();
+    }
+
+    loadUsers(): void {
+        this.isLoadingUsers = true;
+
+        this.userService.getAllUsers({
+            pageable: { page: 0, size: 100, sort: ['fullName,asc'] }  // Load all users for the dropdown
+        }).subscribe({
+            next: (response) => {
+                this.users = response.content || [];
+                this.isLoadingUsers = false;
+            },
+            error: (error) => {
+                console.error('Error loading users', error);
+                this.errorMessage = 'Failed to load users';
+                this.isLoadingUsers = false;
+            }
+        });
     }
 
     loadTaskDetails(): void {
@@ -77,7 +103,7 @@ export class TaskFormComponent implements OnInit {
                     description: task.description || '',
                     status: task.status,
                     dueDate: formattedDueDate,
-                    assigneeId: task.assigneeId || ''
+                    assigneeId: task.assigneeId ? task.assigneeId.toString() : ''
                 });
 
                 this.isLoading = false;

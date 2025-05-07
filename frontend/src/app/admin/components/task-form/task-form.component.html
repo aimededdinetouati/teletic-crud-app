@@ -76,15 +76,22 @@
 
             <div class="form-group">
                 <label for="assigneeId" class="form-label">
-                    Assignee ID
+                    Assignee
                 </label>
-                <input
-                        type="number"
+                <select
                         id="assigneeId"
                         formControlName="assigneeId"
                         class="form-control"
-                        placeholder="Enter user ID to assign task"
+                        [disabled]="isLoadingUsers"
                 >
+                    <option value="">-- Unassigned --</option>
+                    <option *ngFor="let user of users" [value]="user.id">
+                        {{ user.fullName }} ({{ user.email }})
+                    </option>
+                </select>
+                <div *ngIf="isLoadingUsers" class="form-text text-muted mt-1">
+                    <small><i class="fas fa-spinner fa-spin"></i> Loading users...</small>
+                </div>
             </div>
 
             <div class="form-actions">
