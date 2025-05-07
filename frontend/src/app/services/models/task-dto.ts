@@ -6,7 +6,7 @@ export interface TaskDto {
   assigneeId?: number;
   createdDate?: string;
   description?: string;
-  dueDate?: string;
+  dueDate: string | undefined | null;
   id?: number;
   lastModifiedDate?: string;
   status: 'TO_DO' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';

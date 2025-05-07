@@ -1,0 +1,265 @@
+.user-list-container {
+    width: 100%;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.btn-add {
+    display: flex;
+    align-items: center;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-add:hover {
+    background-color: #3a7abf;
+}
+
+.add-icon {
+    margin-right: 0.5rem;
+}
+
+.search-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.search-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 0;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #495057;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.search-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-outline-secondary {
+    background-color: transparent;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+    margin-right: 0.5rem;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #4a90e2;
+    border: 1px solid #4a90e2;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #3a7abf;
+    border-color: #3a7abf;
+}
+
+.table-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 500;
+    color: #495057;
+    font-size: 0.875rem;
+    text-align: left;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-empty {
+    padding: 2rem;
+    text-align: center;
+    color: #6c757d;
+}
+
+.user-role {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #fff;
+    background-color: #6c757d;
+}
+
+.admin-role {
+    background-color: #4a90e2;
+}
+
+.user-status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.status-active {
+    background-color: #2ecc71;
+}
+
+.status-inactive {
+    background-color: #e74c3c;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    background-color: #fff;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-edit {
+    color: #4a90e2;
+    border-color: #4a90e2;
+}
+
+.btn-edit:hover {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+.btn-delete {
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.btn-delete:hover {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.page-info {
+    display: flex;
+    align-items: center;
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.page-buttons {
+    display: flex;
+    margin-left: 1rem;
+}
+
+.page-button {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    padding: 0.375rem 0.75rem;
+    margin: 0 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #495057;
+    cursor: pointer;
+}
+
+.page-button:hover {
+    background-color: #e9ecef;
+}
+
+.page-button.disabled {
+    color: #6c757d;
+    cursor: not-allowed;
+    background-color: #fff;
+}
+
+.page-button.active {
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+    color: #fff;
+}

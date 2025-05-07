@@ -1,0 +1,125 @@
+<app-main-layout>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Admin Dashboard</h1>
+            <p class="dashboard-subtitle">Overview of system data and activities</p>
+        </div>
+
+        <app-loading-spinner *ngIf="isLoading" [message]="'Loading dashboard data...'"></app-loading-spinner>
+
+        <app-alert *ngIf="errorMessage" [type]="'danger'" [message]="errorMessage"></app-alert>
+
+        <div *ngIf="!isLoading && !errorMessage" class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon users-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-title">Total Users</div>
+                <div class="stat-value">{{ totalUsers }}</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon tasks-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="stat-title">Total Tasks</div>
+                <div class="stat-value">{{ totalTasks }}</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon pending-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-title">Pending Tasks</div>
+                <div class="stat-value">{{ pendingTasks }}</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon completed-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-title">Completed Tasks</div>
+                <div class="stat-value">{{ completedTasks }}</div>
+            </div>
+        </div>
+
+        <div *ngIf="!isLoading && !errorMessage" class="overview-container">
+            <div class="overview-card">
+                <div class="overview-card-header">
+                    <h2 class="overview-card-title">Recent Users</h2>
+                    <a routerLink="/admin/users" class="overview-card-action">
+                        View all <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let user of recentUsers">
+                        <td>{{ user.fullName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                <span
+                        class="user-role"
+                        [ngClass]="{'admin-role': user.roles.includes('ROLE_ADMIN')}"
+                >
+                  {{ user.roles.includes('ROLE_ADMIN') ? 'Admin' : 'User' }}
+                </span>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="recentUsers.length === 0">
+                        <td colspan="3" class="table-empty">No users found</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="overview-card">
+                <div class="overview-card-header">
+                    <h2 class="overview-card-title">Recent Tasks</h2>
+                    <a routerLink="/admin/tasks" class="overview-card-action">
+                        View all <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let task of recentTasks">
+                        <td>{{ task.title }}</td>
+                        <td>
+                <span
+                        class="task-status"
+                        [ngClass]="{
+                    'status-todo': task.status === 'TO_DO',
+                    'status-inprogress': task.status === 'IN_PROGRESS',
+                    'status-completed': task.status === 'COMPLETED',
+                    'status-cancelled': task.status === 'CANCELLED'
+                  }"
+                >
+                  {{ task.status }}
+                </span>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="recentTasks.length === 0">
+                        <td colspan="2" class="table-empty">No tasks found</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</app-main-layout>

@@ -1,0 +1,125 @@
+<app-main-layout>
+    <div class="user-list-container">
+        <div class="list-header">
+            <h1 class="page-title">Users Management</h1>
+            <button class="btn-add" routerLink="/admin/users/new">
+                <span class="add-icon"><i class="fas fa-plus"></i></span>
+                <span>Add User</span>
+            </button>
+        </div>
+
+        <div class="search-container">
+            <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" formControlName="fullName" class="form-control" placeholder="Search by name">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="text" formControlName="email" class="form-control" placeholder="Search by email">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Role</label>
+                    <select formControlName="role" class="form-control">
+                        <option value="">All roles</option>
+                        <option value="ROLE_ADMIN">Admin</option>
+                        <option value="ROLE_USER">User</option>
+                    </select>
+                </div>
+
+                <div class="search-actions">
+                    <button type="button" class="btn btn-outline-secondary" (click)="resetSearch()">
+                        Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <app-loading-spinner *ngIf="isLoading" [message]="'Loading users...'"></app-loading-spinner>
+
+        <app-alert *ngIf="errorMessage" [type]="'danger'" [message]="errorMessage"></app-alert>
+
+        <div *ngIf="!isLoading && !errorMessage" class="table-container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.fullName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+              <span
+                      class="user-role"
+                      [ngClass]="{'admin-role': user.roles.includes('ROLE_ADMIN')}"
+              >
+                {{ user.roles.includes('ROLE_ADMIN') ? 'Admin' : 'User' }}
+              </span>
+                    </td>
+                    <td>
+              <span class="user-status"
+                    [ngClass]="{'status-active': user.enabled, 'status-inactive': !user.enabled}">
+              </span>
+                        {{ user.enabled ? 'Active' : 'Inactive' }}
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-action btn-edit" [routerLink]="['/admin/users/edit', user.id]">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-action btn-delete" (click)="confirmDelete(user)">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr *ngIf="users.length === 0">
+                    <td colspan="6" class="table-empty">No users found</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination" *ngIf="totalItems > 0">
+                <div class="page-info">
+                    Showing {{ users.length }} of {{ totalItems }} users
+                </div>
+                <div class="page-buttons">
+                    <button class="page-button" [disabled]="currentPage === 0" (click)="onPageChange(currentPage - 1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="page-button active">
+                        {{ currentPage + 1 }}
+                    </button>
+                    <button class="page-button" [disabled]="(currentPage + 1) * pageSize >= totalItems" (click)="onPageChange(currentPage + 1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-confirm-dialog
+            [visible]="showDeleteConfirm"
+            [title]="'Confirm Delete'"
+            [message]="'Are you sure you want to delete user: ' + (userToDelete?.fullName || '') + '?'"
+            [confirmText]="'Delete'"
+            [cancelText]="'Cancel'"
+            [confirmButtonClass]="'btn-danger'"
+            (confirm)="onDeleteConfirmed()"
+            (cancel)="onDeleteCancelled()"
+    ></app-confirm-dialog>
+</app-main-layout>

@@ -1,0 +1,89 @@
+<app-main-layout>
+    <div class="assign-container">
+        <div class="form-header">
+            <h1 class="page-title">Assign Task</h1>
+            <p class="form-subtitle">Assign this task to a user</p>
+        </div>
+
+        <app-alert *ngIf="errorMessage" [type]="'danger'" [message]="errorMessage"></app-alert>
+        <app-alert *ngIf="successMessage" [type]="'success'" [message]="successMessage"></app-alert>
+
+        <div *ngIf="isLoadingTask" class="loading-indicator">
+            <app-loading-spinner [message]="'Loading task details...'"></app-loading-spinner>
+        </div>
+
+        <div *ngIf="!isLoadingTask && task" class="task-details">
+            <div class="task-title">{{ task?.title }}</div>
+
+            <div class="task-info">
+                <div class="task-info-item">
+                    <span class="info-label">Status:</span>
+                    <span
+                            class="task-status"
+                            [ngClass]="{
+              'status-todo': task?.status === 'TO_DO',
+              'status-inprogress': task?.status === 'IN_PROGRESS',
+              'status-completed': task?.status === 'COMPLETED',
+              'status-cancelled': task?.status === 'CANCELLED'
+            }"
+                    >
+            {{ task?.status }}
+          </span>
+                </div>
+
+                <div class="task-info-item">
+                    <span class="info-label">Current Assignee:</span>
+                    <span>{{ task?.assigneeId ? task?.assigneeId : 'Unassigned' }}</span>
+                </div>
+            </div>
+
+            <div *ngIf="task?.description" class="task-description">
+                {{ task?.description }}
+            </div>
+        </div>
+
+        <div *ngIf="isLoadingUsers" class="loading-indicator">
+            <app-loading-spinner [message]="'Loading users...'"></app-loading-spinner>
+        </div>
+
+        <form *ngIf="!isLoadingTask && !isLoadingUsers && task" [formGroup]="assignForm" (ngSubmit)="onSubmit()" class="form-card">
+            <div class="form-group">
+                <label for="userId" class="form-label">
+                    Select User<span class="required-indicator">*</span>
+                </label>
+                <select
+                        id="userId"
+                        formControlName="userId"
+                        class="form-control"
+                        [ngClass]="{'is-invalid': assignForm.get('userId')?.invalid && assignForm.get('userId')?.touched}"
+                >
+                    <option value="">-- Select a user --</option>
+                    <option *ngFor="let user of users" [value]="user.id">
+                        {{ user.fullName }} ({{ user.email }})
+                    </option>
+                </select>
+                <div *ngIf="assignForm.get('userId')?.invalid && assignForm.get('userId')?.touched" class="invalid-feedback">
+                    <div *ngIf="assignForm.get('userId')?.errors?.['required']">Please select a user</div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button
+                        type="button"
+                        class="btn btn-secondary"
+                        routerLink="/admin/tasks"
+                >
+                    Cancel
+                </button>
+                <button
+                        type="submit"
+                        class="btn btn-primary"
+                        [disabled]="assignForm.invalid || isSubmitting"
+                >
+                    <span *ngIf="isSubmitting" class="spinner"></span>
+                    Assign Task
+                </button>
+            </div>
+        </form>
+    </div>
+</app-main-layout>

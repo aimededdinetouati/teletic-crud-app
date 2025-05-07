@@ -1,0 +1,198 @@
+.dashboard-container {
+    width: 100%;
+    height: 100%;
+}
+
+.dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.dashboard-title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-title {
+    color: #6c757d;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.stat-icon {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #4a90e2;
+    align-self: flex-end;
+}
+
+.users-icon {
+    color: #4a90e2;
+}
+
+.tasks-icon {
+    color: #f39c12;
+}
+
+.pending-icon {
+    color: #e74c3c;
+}
+
+.completed-icon {
+    color: #2ecc71;
+}
+
+.overview-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.overview-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+}
+
+.overview-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.overview-card-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.overview-card-action {
+    color: #4a90e2;
+    font-size: 0.875rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.overview-card-action i {
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.table th {
+    text-align: left;
+    font-weight: 500;
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table-empty {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+}
+
+.user-name {
+    display: flex;
+    align-items: center;
+}
+
+.user-role {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #fff;
+    background-color: #6c757d;
+}
+
+.admin-role {
+    background-color: #4a90e2;
+}
+
+.task-status {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.status-todo {
+    color: #495057;
+    background-color: #e9ecef;
+}
+
+.status-inprogress {
+    color: #fff;
+    background-color: #f39c12;
+}
+
+.status-completed {
+    color: #fff;
+    background-color: #2ecc71;
+}
+
+.status-cancelled {
+    color: #fff;
+    background-color: #e74c3c;
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .overview-container {
+        grid-template-columns: 1fr;
+    }
+}
