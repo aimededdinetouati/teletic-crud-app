@@ -17,7 +17,8 @@ import {SharedModule} from "../../../shared/shared.module";
         MainLayoutComponent,
         LoadingSpinnerComponent,
         NgClass,
-        SharedModule
+        SharedModule,
+        CommonModule
     ],
     styleUrls: ['./task-form.component.css']
 })
