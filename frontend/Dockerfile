@@ -1,13 +1,20 @@
-# Build stage
-FROM node:18-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+# Use Node.js as base image
+FROM node:18-alpine
 
-# Runtime stage
-FROM nginx:alpine
-COPY --from=build /app/dist/my-app /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy project files
+COPY . .
+
+# Expose port 4200 (Angular default dev server port)
+EXPOSE 4200
+
+# Start the Angular development server, binding to all network interfaces
+CMD ["npm", "start", "--", "--host", "0.0.0.0", "--disable-host-check"]

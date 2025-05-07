@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     {
       provide: ApiConfiguration,
       useValue: {
-        rootUrl: 'http://localhost:8080/api'
+        rootUrl: '/api'
       }
     }
   ]
