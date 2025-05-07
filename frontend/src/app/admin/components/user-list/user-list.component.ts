@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { UserManagementService } from '../../../services/services/user-management.service';
 import { UserDto } from '../../../services/models/user-dto';
 import {CommonModule} from "@angular/common";
+import {ConfirmDialogComponent} from "../../../shared/components/confirm-dialog/confirm-dialog.component";
+import {SharedModule} from "../../../shared/shared.module";
 
 @Component({
     selector: 'app-user-list',
@@ -11,6 +13,9 @@ import {CommonModule} from "@angular/common";
     styleUrls: ['./user-list.component.css'],
     imports: [
         CommonModule,
+        ConfirmDialogComponent,
+        SharedModule,
+        RouterLink,
     ]
 })
 export class UserListComponent implements OnInit {
