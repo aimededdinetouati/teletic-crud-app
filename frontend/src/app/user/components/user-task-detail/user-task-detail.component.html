@@ -1,0 +1,84 @@
+<app-main-layout>
+    <div class="task-detail-container">
+        <div class="page-header">
+            <h1 class="page-title">Task Details</h1>
+            <a routerLink="/user/tasks" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Tasks
+            </a>
+        </div>
+
+        <app-alert *ngIf="errorMessage" [type]="'danger'" [message]="errorMessage"></app-alert>
+        <app-alert *ngIf="successMessage" [type]="'success'" [message]="successMessage"></app-alert>
+
+        <div *ngIf="isLoading" class="loading-indicator">
+            <app-loading-spinner [message]="'Loading task details...'"></app-loading-spinner>
+        </div>
+
+        <div *ngIf="!isLoading && task">
+            <div class="task-detail-card">
+                <h2 class="task-title">{{ task.title }}</h2>
+
+                <div class="task-info">
+                    <div class="info-item">
+                        <div class="info-label">Status</div>
+                        <div class="info-value">
+              <span
+                      class="task-status"
+                      [ngClass]="getStatusClass(task.status)"
+              >
+                {{ task.status }}
+              </span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">Due Date</div>
+                        <div class="info-value">{{ formatDate(task.dueDate) }}</div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">Created Date</div>
+                        <div class="info-value">{{ formatDate(task.createdDate) }}</div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">Last Updated</div>
+                        <div class="info-value">{{ formatDate(task.lastModifiedDate) }}</div>
+                    </div>
+                </div>
+
+                <div class="task-description">
+                    <div class="description-label">Description</div>
+                    <div class="description-content">
+                        {{ task.description || 'No description provided for this task.' }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-update-card">
+                <h3 class="update-title">Update Task Status</h3>
+
+                <form [formGroup]="statusForm" (ngSubmit)="updateStatus()">
+                    <div class="form-group">
+                        <label for="status" class="form-label">Status</label>
+                        <select id="status" formControlName="status" class="form-control">
+                            <option value="TO_DO">To Do</option>
+                            <option value="IN_PROGRESS">In Progress</option>
+                            <option value="COMPLETED">Completed</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                    </div>
+
+                    <button
+                            type="submit"
+                            class="btn btn-primary"
+                            [disabled]="statusForm.invalid || isUpdating || statusForm.value.status === task.status"
+                    >
+                        <span *ngIf="isUpdating" class="spinner"></span>
+                        Update Status
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</app-main-layout>

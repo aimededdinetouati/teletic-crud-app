@@ -1,0 +1,99 @@
+<app-main-layout>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="user-greeting">
+                <h1 class="dashboard-title">Welcome, {{ currentUser?.email }}</h1>
+                <p class="dashboard-subtitle">Here's an overview of your assigned tasks</p>
+            </div>
+        </div>
+
+        <app-loading-spinner *ngIf="isLoading" [message]="'Loading your dashboard...'"></app-loading-spinner>
+
+        <app-alert *ngIf="errorMessage" [type]="'danger'" [message]="errorMessage"></app-alert>
+
+        <div *ngIf="!isLoading && !errorMessage">
+            <div class="welcome-message" *ngIf="tasks.length === 0">
+                <h3>Welcome to the Task Management System!</h3>
+                <p>You don't have any tasks assigned to you yet. Once an administrator assigns tasks to you, they will appear here.</p>
+            </div>
+
+            <div *ngIf="tasks.length > 0">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon tasks-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-title">Total Tasks</div>
+                        <div class="stat-value">{{ totalTasks }}</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon todo-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="stat-title">To Do</div>
+                        <div class="stat-value">{{ todoTasks }}</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon progress-icon">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <div class="stat-title">In Progress</div>
+                        <div class="stat-value">{{ inProgressTasks }}</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon completed-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-title">Completed</div>
+                        <div class="stat-value">{{ completedTasks }}</div>
+                    </div>
+                </div>
+
+                <div class="recent-tasks-container">
+                    <div class="recent-tasks-header">
+                        <h2 class="recent-tasks-title">Recent Tasks</h2>
+                        <a routerLink="/user/tasks" class="view-all-link">
+                            View all tasks <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Due Date</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let task of tasks.slice(0, 5)">
+                            <td>
+                                <div class="task-title">{{ task.title }}</div>
+                                <div class="task-description" *ngIf="task.description">{{ task.description }}</div>
+                            </td>
+                            <td>
+                  <span
+                          class="task-status"
+                          [ngClass]="getStatusClass(task.status)"
+                  >
+                    {{ task.status }}
+                  </span>
+                            </td>
+                            <td>{{ formatDate(task.dueDate) }}</td>
+                            <td>
+                                <a [routerLink]="['/user/tasks', task.id]" class="task-link">
+                                    View Details
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-main-layout>

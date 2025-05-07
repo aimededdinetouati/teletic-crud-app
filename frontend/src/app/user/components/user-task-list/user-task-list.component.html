@@ -1,0 +1,97 @@
+<app-main-layout>
+    <div class="task-list-container">
+        <div class="list-header">
+            <h1 class="page-title">My Tasks</h1>
+            <p class="page-subtitle">View and manage all tasks assigned to you</p>
+        </div>
+
+        <div class="filter-container">
+            <div class="form-group">
+                <label class="form-label">Filter by Status</label>
+                <select
+                        [formGroup]="filterForm"
+                        formControlName="status"
+                        (change)="onFilterChange()"
+                        class="form-control"
+                >
+                    <option value="">All Statuses</option>
+                    <option value="TO_DO">To Do</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="COMPLETED">Completed</option>
+                    <option value="CANCELLED">Cancelled</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-outline-secondary" (click)="resetFilter()">
+                Reset Filter
+            </button>
+        </div>
+
+        <app-loading-spinner *ngIf="isLoading" [message]="'Loading your tasks...'"></app-loading-spinner>
+
+        <app-alert *ngIf="errorMessage" [type]="'danger'" [message]="errorMessage"></app-alert>
+
+        <div *ngIf="!isLoading && !errorMessage">
+            <div *ngIf="tasks.length > 0" class="table-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let task of tasks">
+                        <td class="task-title">{{ task.title }}</td>
+                        <td>
+                            <div class="task-description">{{ task.description || 'No description' }}</div>
+                        </td>
+                        <td>
+                <span
+                        class="task-status"
+                        [ngClass]="getStatusClass(task.status)"
+                >
+                  {{ task.status }}
+                </span>
+                        </td>
+                        <td>{{ formatDate(task.dueDate) }}</td>
+                        <td class="task-action">
+                            <a [routerLink]="['/user/tasks', task.id]">View / Update</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination" *ngIf="totalItems > 0">
+                    <div class="page-info">
+                        Showing {{ tasks.length }} of {{ totalItems }} tasks
+                    </div>
+                    <div class="page-buttons">
+                        <button class="page-button" [disabled]="currentPage === 0" (click)="onPageChange(currentPage - 1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="page-button active">
+                            {{ currentPage + 1 }}
+                        </button>
+                        <button class="page-button" [disabled]="(currentPage + 1) * pageSize >= totalItems" (click)="onPageChange(currentPage + 1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="tasks.length === 0" class="no-tasks">
+                <div class="no-tasks-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3 class="no-tasks-message">No tasks found</h3>
+                <p class="no-tasks-description">
+                    You don't have any tasks assigned to you yet. When an administrator assigns tasks to you, they will appear here.
+                </p>
+            </div>
+        </div>
+    </div>
+</app-main-layout>
