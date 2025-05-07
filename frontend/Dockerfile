@@ -1,4 +1,4 @@
-# Use Node.js as base image
+# Use Node.js LTS as base image
 FROM node:18-alpine
 
 # Set working directory
@@ -16,5 +16,5 @@ COPY . .
 # Expose port 4200 (Angular default dev server port)
 EXPOSE 4200
 
-# Start the Angular development server, binding to all network interfaces
-CMD ["npm", "start", "--", "--host", "0.0.0.0", "--disable-host-check"]
+# Start the Angular development server binding to all network interfaces
+CMD ["npm", "start", "--", "--host", "0.0.0.0"]
