@@ -127,7 +127,7 @@ export class TaskListComponent implements OnInit {
     }
 
     // Helper method to format date string
-    formatDate(dateString: string | undefined): string {
+    formatDate(dateString: string | undefined | null): string {
         if (!dateString) return 'Not set';
 
         const date = new Date(dateString);
