@@ -9,16 +9,10 @@ import { UserTaskListComponent } from './components/user-task-list/user-task-lis
 import { UserTaskDetailComponent } from './components/user-task-detail/user-task-detail.component';
 
 const userRoutes: Routes = [
-  {
-    path: '',
-    component: UserDashboardComponent,
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: UserDashboardComponent },
-      { path: 'tasks', component: UserTaskListComponent },
-      { path: 'tasks/:id', component: UserTaskDetailComponent }
-    ]
-  }
+  { path: 'dashboard', component: UserDashboardComponent },
+  { path: 'tasks', component: UserTaskListComponent },
+  { path: 'tasks/:id', component: UserTaskDetailComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({

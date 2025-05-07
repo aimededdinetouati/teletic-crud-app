@@ -12,21 +12,15 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
 import { TaskAssignComponent } from './components/task-assign/task-assign.component';
 
 const adminRoutes: Routes = [
-  {
-    path: '',
-    component: AdminDashboardComponent,
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: AdminDashboardComponent },
-      { path: 'users', component: UserListComponent },
-      { path: 'users/new', component: UserFormComponent },
-      { path: 'users/edit/:id', component: UserFormComponent },
-      { path: 'tasks', component: TaskListComponent },
-      { path: 'tasks/new', component: TaskFormComponent },
-      { path: 'tasks/edit/:id', component: TaskFormComponent },
-      { path: 'tasks/assign/:id', component: TaskAssignComponent }
-    ]
-  }
+  { path: 'dashboard', component: AdminDashboardComponent },
+  { path: 'users', component: UserListComponent },
+  { path: 'users/new', component: UserFormComponent },
+  { path: 'users/edit/:id', component: UserFormComponent },
+  { path: 'tasks', component: TaskListComponent },
+  { path: 'tasks/new', component: TaskFormComponent },
+  { path: 'tasks/edit/:id', component: TaskFormComponent },
+  { path: 'tasks/assign/:id', component: TaskAssignComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({
