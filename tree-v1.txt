@@ -1,0 +1,217 @@
+teletic-crud-app/
+├── README.md
+├── .gitignore
+├── docker-compose.yml
+│
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── kotlin/
+│   │   │   │   └── com/
+│   │   │   │       └── teletic/
+│   │   │   │           └── test_crud/
+│   │   │   │               ├── TestCrudApplication.kt
+│   │   │   │               ├── config/
+│   │   │   │               │   ├── CorsConfig.kt
+│   │   │   │               │   ├── OpenApiConfig.kt
+│   │   │   │               │   ├── ProblemConfig.kt
+│   │   │   │               │   └── SecurityConfig.kt
+│   │   │   │               ├── domain/
+│   │   │   │               │   ├── Role.kt
+│   │   │   │               │   ├── Task.kt
+│   │   │   │               │   ├── Token.kt
+│   │   │   │               │   └── User.kt
+│   │   │   │               ├── repository/
+│   │   │   │               │   ├── RoleRepository.kt
+│   │   │   │               │   ├── TaskRespository.kt
+│   │   │   │               │   ├── TokenRepository.kt
+│   │   │   │               │   └── UserRepository.kt
+│   │   │   │               ├── security/
+│   │   │   │               │   ├── AuthoritiesConstants.kt
+│   │   │   │               │   ├── JwtFilter.kt
+│   │   │   │               │   ├── JwtService.kt
+│   │   │   │               │   └── UserDetailsService.kt
+│   │   │   │               ├── service/
+│   │   │   │               │   ├── AuthenticationService.kt
+│   │   │   │               │   ├── RoleService.kt
+│   │   │   │               │   ├── TaskService.kt
+│   │   │   │               │   ├── UserService.kt
+│   │   │   │               │   └── dto/
+│   │   │   │               │       ├── AuthenticationRequestDTO.kt
+│   │   │   │               │       ├── AuthenticationResponseDTO.kt
+│   │   │   │               │       ├── RegistrationRequestDTO.kt
+│   │   │   │               │       ├── TaskDTO.kt
+│   │   │   │               │       └── UserDTO.kt
+│   │   │   │               └── web/
+│   │   │   │                   ├── rest/
+│   │   │   │                   │   ├── AuthenticationResource.kt
+│   │   │   │                   │   ├── HealthResource.kt
+│   │   │   │                   │   ├── TaskResource.kt
+│   │   │   │                   │   ├── UserResource.kt
+│   │   │   │                   │   └── errors/
+│   │   │   │                   │       ├── BadRequestAlertException.kt
+│   │   │   │                   │       └── ExceptionTranslator.kt
+│   │   │   └── resources/
+│   │   │       ├── application.yml
+│   │   │       ├── application-dev.yml
+│   │   │       ├── application-prod.yml
+│   │   │       └── db/
+│   │   │           └── migration/
+│   │   │               └── data.sql
+│   │   └── test/
+│   ├── build.gradle.kts
+│   ├── Dockerfile
+│   ├── gradlew
+│   ├── gradlew.bat
+│   └── settings.gradle.kts
+│
+├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── app.component.ts
+│   │   │   ├── app.component.html
+│   │   │   ├── app.component.css
+│   │   │   ├── app.config.ts
+│   │   │   ├── app.routes.ts
+│   │   │   │
+│   │   │   ├── auth/
+│   │   │   │   ├── auth.module.ts
+│   │   │   │   ├── components/
+│   │   │   │   │   ├── login/
+│   │   │   │   │   │   ├── login.component.ts
+│   │   │   │   │   │   ├── login.component.html
+│   │   │   │   │   │   └── login.component.css
+│   │   │   │   │   └── register/
+│   │   │   │   │       ├── register.component.ts
+│   │   │   │   │       ├── register.component.html
+│   │   │   │   │       └── register.component.css
+│   │   │   │   ├── guards/
+│   │   │   │   │   ├── admin.guard.ts
+│   │   │   │   │   └── auth.guard.ts
+│   │   │   │   ├── interceptors/
+│   │   │   │   │   └── auth.interceptor.ts
+│   │   │   │   └── services/
+│   │   │   │       └── auth.service.ts
+│   │   │   │
+│   │   │   ├── admin/
+│   │   │   │   ├── admin.module.ts
+│   │   │   │   └── components/
+│   │   │   │       ├── admin-dashboard/
+│   │   │   │       │   ├── admin-dashboard.component.ts
+│   │   │   │       │   ├── admin-dashboard.component.html
+│   │   │   │       │   └── admin-dashboard.component.css
+│   │   │   │       ├── task-assign/
+│   │   │   │       │   ├── task-assign.component.ts
+│   │   │   │       │   ├── task-assign.component.html
+│   │   │   │       │   └── task-assign.component.css
+│   │   │   │       ├── task-form/
+│   │   │   │       │   ├── task-form.component.ts
+│   │   │   │       │   ├── task-form.component.html
+│   │   │   │       │   └── task-form.component.css
+│   │   │   │       ├── task-list/
+│   │   │   │       │   ├── task-list.component.ts
+│   │   │   │       │   ├── task-list.component.html
+│   │   │   │       │   └── task-list.component.css
+│   │   │   │       ├── user-form/
+│   │   │   │       │   ├── user-form.component.ts
+│   │   │   │       │   ├── user-form.component.html
+│   │   │   │       │   └── user-form.component.css
+│   │   │   │       └── user-list/
+│   │   │   │           ├── user-list.component.ts
+│   │   │   │           ├── user-list.component.html
+│   │   │   │           └── user-list.component.css
+│   │   │   │
+│   │   │   ├── user/
+│   │   │   │   ├── user.module.ts
+│   │   │   │   └── components/
+│   │   │   │       ├── user-dashboard/
+│   │   │   │       │   ├── user-dashboard.component.ts
+│   │   │   │       │   ├── user-dashboard.component.html
+│   │   │   │       │   └── user-dashboard.component.css
+│   │   │   │       ├── user-task-detail/
+│   │   │   │       │   ├── user-task-detail.component.ts
+│   │   │   │       │   ├── user-task-detail.component.html
+│   │   │   │       │   └── user-task-detail.component.css
+│   │   │   │       └── user-task-list/
+│   │   │   │           ├── user-task-list.component.ts
+│   │   │   │           ├── user-task-list.component.html
+│   │   │   │           └── user-task-list.component.css
+│   │   │   │
+│   │   │   ├── shared/
+│   │   │   │   ├── shared.module.ts
+│   │   │   │   └── components/
+│   │   │   │       ├── alert/
+│   │   │   │       │   ├── alert.component.ts
+│   │   │   │       │   ├── alert.component.html
+│   │   │   │       │   └── alert.component.css
+│   │   │   │       ├── confirm-dialog/
+│   │   │   │       │   ├── confirm-dialog.component.ts
+│   │   │   │       │   ├── confirm-dialog.component.html
+│   │   │   │       │   └── confirm-dialog.component.css
+│   │   │   │       ├── header/
+│   │   │   │       │   ├── header.component.ts
+│   │   │   │       │   ├── header.component.html
+│   │   │   │       │   └── header.component.css
+│   │   │   │       ├── loading-spinner/
+│   │   │   │       │   ├── loading-spinner.component.ts
+│   │   │   │       │   ├── loading-spinner.component.html
+│   │   │   │       │   └── loading-spinner.component.css
+│   │   │   │       ├── main-layout/
+│   │   │   │       │   ├── main-layout.component.ts
+│   │   │   │       │   ├── main-layout.component.html
+│   │   │   │       │   └── main-layout.component.css
+│   │   │   │       └── sidebar/
+│   │   │   │           ├── sidebar.component.ts
+│   │   │   │           ├── sidebar.component.html
+│   │   │   │           └── sidebar.component.css
+│   │   │   │
+│   │   │   └── services/
+│   │   │       ├── api-configuration.ts
+│   │   │       ├── api.module.ts
+│   │   │       ├── base-service.ts
+│   │   │       ├── models.ts
+│   │   │       ├── request-builder.ts
+│   │   │       ├── strict-http-response.ts
+│   │   │       ├── fn/
+│   │   │       │   ├── authentication/
+│   │   │       │   ├── health-resource/
+│   │   │       │   ├── task-management/
+│   │   │       │   └── user-management/
+│   │   │       ├── models/
+│   │   │       │   ├── authentication-request-dto.ts
+│   │   │       │   ├── pageable-object.ts
+│   │   │       │   ├── pageable.ts
+│   │   │       │   ├── page-task-dto.ts
+│   │   │       │   ├── page-user-dto.ts
+│   │   │       │   ├── registration-request-dto.ts
+│   │   │       │   ├── sort-object.ts
+│   │   │       │   ├── task-assignment-dto.ts
+│   │   │       │   ├── task-dto.ts
+│   │   │       │   ├── task-status-update-dto.ts
+│   │   │       │   └── user-dto.ts
+│   │   │       └── services/
+│   │   │           ├── authentication.service.ts
+│   │   │           ├── health-resource.service.ts
+│   │   │           ├── task-management.service.ts
+│   │   │           └── user-management.service.ts
+│   │   │
+│   │   ├── assets/
+│   │   ├── openapi/
+│   │   │   └── openapi.json
+│   │   ├── index.html
+│   │   ├── main.ts
+│   │   └── styles.css
+│   │
+│   ├── angular.json
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   ├── package.json
+│   ├── proxy.conf.json
+│   ├── README.md
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   └── tsconfig.spec.json
+│
+└── postgres/
+    ├── Dockerfile
+    └── init.sql
