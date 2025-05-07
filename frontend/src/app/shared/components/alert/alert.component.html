@@ -1,0 +1,13 @@
+<div *ngIf="visible" class="alert" [ngClass]="'alert-' + type">
+  <span *ngIf="icon" class="alert-icon">
+    <i class="fas" [ngClass]="iconClass"></i>
+  </span>
+
+    <div class="alert-content">
+        {{ message }}
+    </div>
+
+    <button *ngIf="dismissible" class="alert-close" (click)="close()">
+        <i class="fas fa-times"></i>
+    </button>
+</div>

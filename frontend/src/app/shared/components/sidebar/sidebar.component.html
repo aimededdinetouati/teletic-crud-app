@@ -1,0 +1,20 @@
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h3 class="sidebar-title">Menu</h3>
+    </div>
+
+    <ul class="nav-menu">
+        <li class="nav-item" *ngFor="let item of getFilteredNavItems()">
+            <a
+                    [routerLink]="item.link"
+                    routerLinkActive="active"
+                    class="nav-link"
+            >
+        <span class="nav-icon">
+          <i class="fas {{ item.icon }}"></i>
+        </span>
+                <span class="nav-text">{{ item.title }}</span>
+            </a>
+        </li>
+    </ul>
+</aside>

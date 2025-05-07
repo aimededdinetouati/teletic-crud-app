@@ -1,0 +1,21 @@
+<header class="header">
+    <div class="app-brand">
+        <h1 class="app-title">Task Management System</h1>
+    </div>
+
+    <div class="header-actions" *ngIf="currentUser">
+        <div class="user-info">
+            <span class="user-name">{{ currentUser.email }}</span>
+            <span class="user-role" [class.admin-role]="isAdmin">
+        {{ isAdmin ? 'Admin' : 'User' }}
+      </span>
+        </div>
+
+        <button class="header-btn logout-btn" (click)="logout()">
+      <span class="logout-icon">
+        <i class="fas fa-sign-out-alt"></i>
+      </span>
+            <span>Logout</span>
+        </button>
+    </div>
+</header>
